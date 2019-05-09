@@ -24,7 +24,8 @@ func (c *MainController) Get() {
 	}
 
 	// beego.Info("the session is:", seesione)
-	c.Data["Website"] = "beego.me"
-	c.Data["Email"] = "astaxie@gmail.com"
+	// c.Data["Website"] = "beego.me"
+	// c.Data["Email"] = "astaxie@gmail.com"
+	//c.Layout = "head.html"
 	c.TplName = "index.html"
 }

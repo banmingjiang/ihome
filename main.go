@@ -17,6 +17,7 @@ func main() {
 
 }
 
+//自定义视图层
 func ignoreStaticPath() {
 	beego.InsertFilter("/", beego.BeforeRouter, TransparentStatic)
 	beego.InsertFilter("/*", beego.BeforeRouter, TransparentStatic)
@@ -31,3 +32,5 @@ func TransparentStatic(ctx *context.Context) {
 	http.ServeFile(ctx.ResponseWriter, ctx.Request, "static/html/"+ctx.Request.URL.Path)
 	//http.ServeFile
 }
+
+//自定义错误页面

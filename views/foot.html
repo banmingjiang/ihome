@@ -1,0 +1,133 @@
+<!-- SUBSCRIBE -->
+<div class="section subscribe">
+        <div class="container">
+          <div class="row">
+            <div class="col s12">
+              <div class="section-title">SUBSCRIBE</div>
+              <p class="center">Get Your Groceries delivered from local stores</p>
+              <div class="mail-subscribe-box">
+                <input class="form-control" name="user-email" placeholder="Enter email address" value="" type="email">
+                <i class="fa fa-angle-right"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="bg-subscribe" style="background-image: url(/static/img/bg-profile.jpg);">
+        </div>
+      </div>
+      <!-- END SUBSCRIBE -->
+      <!-- FOOTER  -->
+      <footer id="footer">
+      <div class="footer-info">
+        <div class="container">
+          <div class="col s12 center">
+            <i class="fas fa-map-marker-alt"></i> Karangwaru St, Yogyakarta, Indonesia<br>
+            <i class="fas fa-phone-square"></i> (+62)-000-123456 <br>
+            <i class="fas fa-envelope"></i> halo@gromarttheme.com
+          </div>
+        </div>
+      </div>
+      <div class="container">
+        <div class="row row-footer-icon">
+          <div class="col s12">
+            <div class="footer-sosmed-icon ">
+              <div class="wrap-circle-sosmed ">
+                <a href="#">
+                <div class="circle-sosmed">
+                  <i class="fab fa-instagram"></i>
+                </div>
+                </a>
+              </div>
+              <div class="wrap-circle-sosmed ">
+                <a href="#">
+                <div class="circle-sosmed">
+                  <i class="fab fa-linkedin-in"></i>
+                </div>
+                </a>
+              </div>
+              <div class="wrap-circle-sosmed ">
+                <a href="#">
+                <div class="circle-sosmed">
+                  <i class="fab fa-twitter"></i>
+                </div>
+                </a>
+              </div>
+              <div class="wrap-circle-sosmed ">
+                <a href="#">
+                <div class="circle-sosmed">
+                  <i class="fab fa-facebook-f"></i>
+                </div>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row copyright">
+           2018 <span>GroMart</span>, All rights reserved.
+        </div>
+      </div>
+      </footer>
+      <!-- END FOOTER -->
+      <!-- Script -->
+      <script src="/static/js/jquery.min.js"></script>
+      <script src="/static/js/materialize.min.js"></script>
+      <!-- Owl carousel -->
+      <script src="/static/lib/owlcarousel/owl.carousel.min.js"></script>
+      <!-- Magnific Popup core JS file -->
+      <script src="/static/lib/Magnific-Popup-master/dist/jquery.magnific-popup.js"></script>
+      <!-- Slick JS -->
+      <script src="/static/lib/slick/slick/slick.min.js"></script>
+      <!-- Custom script -->
+      <script src="/static/js/custom.js"></script>
+      <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+      <script src="/static/layer/layer.js"></script>
+      <script>
+        $(function(){
+        
+         $.get("/api/area",{data:0},function(data){
+          if(data.errno==0){
+          // console.log(data.data[0].aname)
+            var html='';
+            
+            var len=data.data.length
+            for (i=0;i<len;i++){
+            
+              html+='<li><a class="waves-effect waves-blue" href="product-list.html"><i class="fas fa-angle-right"></i>'+data.data[i].aname+'</a></li>';
+            }
+            $(".chengqu ul").append(html)
+          }else{
+            var html=''
+            html+='<li><a class="waves-effect waves-blue" href="product-list.html"><i class="fas fa-angle-right"></i>'+data.errmsg+'</a></li>';
+          }
+         },"json")
+           
+        })
+        function loginout(){
+          $.ajax({
+          url:"/api/login",
+          type:"DELETE",
+          contentType:"application/json",//设置请求参数类型为json字符串
+          data:0,//将json对象转换成json字符串发送
+          dataType:"json",
+          success:function(data){
+            layer.msg(data.errmsg)
+            timer = setInterval(function(){
+              location.reload()
+            },2000)
+              },
+                  
+         });
+      
+          // //var data = JSON.stringify({__method:"DELETE"})
+          // var data = ({__method:"DELETE"})
+          // $.post("/api/logout",data,function(data){
+          //   layer.msg(data.errmsg)
+          //   timer = setInterval(function(){
+          //     location.reload()
+          //   },2000)
+           
+          // },"json")
+        }
+      </script>
+      </body>
+      </html>

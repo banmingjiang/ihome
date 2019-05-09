@@ -10,7 +10,7 @@ import (
 // Model Struct
 type User struct {
 	Id            int           `json:"user_id"` //id默认主键自增  若想设置其他：user_id int `orm:pk,auto`
-	Name          string        `orm:"size(32);unique" json:"name"`
+	Name          string        `orm:"size(32)" json:"name"`
 	Password_hash string        `orm:"size(128)" json :"password"` //varchar 100
 	Mobile        string        `orm:"size(11)" json:"mobile"`
 	Real_name     string        `orm:"size(32)" json:"real_name"`
