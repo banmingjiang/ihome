@@ -12,9 +12,15 @@ import (
 
 func main() {
 	//ignoreStaticPath()
-
+	//SetFDFS()
+	//models.Upload("main.go")
 	beego.Run()
 
+}
+
+//设置fdfs的静态文件路径
+func SetFDFS() {
+	beego.SetStaticPath("group1/MOO", "fdfs/storange_data/data")
 }
 
 //自定义视图层

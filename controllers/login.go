@@ -2,6 +2,7 @@ package controllers
 
 import (
 	"encoding/json"
+
 	"ihome/models"
 
 	"github.com/astaxie/beego"
@@ -17,17 +18,44 @@ func (a *LoginController) RetData(resp map[string]interface{}) {
 	a.ServeJSON()
 }
 
-//获取用户信息
-func (c *LoginController) GetUserInfo() {
-	//先判断用户是否已经登录
-	isLogin := c.GetSession("IsLogin")
+//从数据库获取用户信息
+func GetUserInfo(id interface{}) (data map[string]interface{}) {
 
-	if isLogin == true {
-		c.Data["IsLogin"] = isLogin
-		c.Data["real_name"] = c.GetSession("real_name")
-		c.Data["mobile"] = c.GetSession("mobile")
-		c.Data["id"] = c.GetSession("id")
+	data = make(map[string]interface{})
+	res := make(map[string]interface{})
+	userinfo := models.User{}
+	o := orm.NewOrm()
+	err := o.Raw("SELECT * FROM user WHERE id = ?", id).QueryRow(&userinfo)
+	if err != nil {
+		data["code"] = "500"
+		data["msg"] = "用户不存在"
+		return
 	}
+
+	json_data, err := json.Marshal(userinfo)
+	if err != nil {
+		data["code"] = "505"
+		data["msg"] = "json.Marshal ERROR"
+		beego.Info("json.Marshal is fail")
+		models.MakeLogs("json.Marshal is fail", err)
+		return
+	}
+	//转成map格式返回
+	un_err := json.Unmarshal([]byte(json_data), &res)
+	if un_err != nil {
+		beego.Info("json.unMarshal is fail")
+		models.MakeLogs("json.unMarshal is fail", un_err)
+		data["code"] = "505"
+		data["msg"] = "json.unMarshal ERROR"
+		return
+	}
+	data["code"] = "200"
+	data["msg"] = "OK"
+	data["res"] = res
+	return
+	//h, _ := json.Marshal(data)
+
+	//fmt.Printf("%v\n", string(h))
 
 }
 

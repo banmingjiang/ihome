@@ -1,6 +1,8 @@
 package controllers
 
 import (
+	"fmt"
+
 	"github.com/astaxie/beego"
 )
 
@@ -13,14 +15,18 @@ type MainController struct {
 // 	a.ServeJSON()
 // }
 func (c *MainController) Get() {
-	c.Data["real_name"] = nil
 	c.Data["IsLogin"] = c.GetSession("IsLogin")
+
 	//判断是否登陆
 	//beego.Info("the IsLogin is:", c.Data["IsLogin"])
 	if c.Data["IsLogin"] != nil {
-		c.Data["IsLogin"] = c.Data["IsLogin"]
+		//GetUserInfo(true)
+		c.Data["IsLogin"] = true
 		c.Data["real_name"] = c.GetSession("real_name")
 		c.Data["mobile"] = c.GetSession("mobile")
+		data := GetUserInfo(c.GetSession("id"))
+		fmt.Printf("%v\n", data)
+
 	}
 
 	// beego.Info("the session is:", seesione)
