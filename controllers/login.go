@@ -36,7 +36,7 @@ func GetUserInfo(id interface{}) (data map[string]interface{}) {
 	if err != nil {
 		data["code"] = "505"
 		data["msg"] = "json.Marshal ERROR"
-		beego.Info("json.Marshal is fail")
+		//beego.Info("json.Marshal is fail")
 		models.MakeLogs("json.Marshal is fail", err)
 		return
 	}

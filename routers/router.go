@@ -19,6 +19,7 @@ func init() {
 	beego.Router("/api/login", &controllers.LoginController{}, "get:Login;post:ToLog;delete:LogOut")
 	//渲染设置页面
 	beego.Router("/setting", &controllers.SettingController{}, "get:Setting")
+	beego.Router("/setting/user", &controllers.SettingController{}, "post:SetUser")
 	//
 	//beego.Router("/api/logout", &controllers.LogOutController{}, "post:LogOut")
 }
